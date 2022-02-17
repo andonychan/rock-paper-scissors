@@ -1,26 +1,59 @@
 var myArray = ['Rock', 'Paper', 'Scissors'];
 
+let computerScore = 0;
+let playerScore = 0;
+
 function computerPlay() {
     const computerRandom = Math.floor(Math.random() * myArray.length);
     return myArray[computerRandom];
 }
 
-const playerSelection = prompt('Rock, Paper or Scissors?').toUpperCase();
-const computerSelection = computerPlay().toUpperCase();
+function singleRound() {
 
-function singleRound(playerSelection, computerSelection) {
+    const playerSelection = prompt('Rock, Paper or Scissors?').toUpperCase();
+
+    if (['ROCK', 'PAPER', 'SCISSORS'].indexOf(playerSelection) < 0) {
+        alert('Wrong input!');
+        return;
+    }
+    const computerSelection = computerPlay().toUpperCase();
+
     if (playerSelection === computerSelection) {
-        const result = 'Draw';
+        const result = 'Draw! | Player: ' + playerScore + ' | Computer: ' + computerScore;
+        //console.log('Computer: ' + computerSelection);
+        //console.log('Player: ' + playerSelection);
         return result;
     }
     else if ((playerSelection === 'ROCK' && computerSelection === 'SCISSORS') || (playerSelection === 'SCISSORS' && computerSelection === 'PAPER') || (playerSelection === 'PAPER' && computerSelection === 'ROCK')) {
-        const result = 'You win!';
+        playerScore += 1;
+        const result = 'You win! | Player: ' + playerScore + ' | Computer: ' + computerScore;
+        //console.log('Computer: ' + computerSelection);
+        //console.log('Player: ' + playerSelection);
         return result;
     }
     else {
-        const result = 'You lose!';
+        computerScore += 1;
+        const result = 'You lose! | Player: ' + playerScore + ' | Computer: ' + computerScore;
+        //console.log('Computer: ' + computerSelection);
+        //console.log('Player: ' + playerSelection);
         return result;
     }
 }
 
-console.log('computer '+ computerSelection);
+function game() {
+
+    for (let i=0; i<Infinity; i++) {
+        console.log(singleRound());
+
+        if (playerScore == 5) {
+            console.log('You won!');
+            break;
+        }
+
+        else if (computerScore == 5) {
+            console.log('You lost!');
+            break;
+        }
+    }
+
+}
